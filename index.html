@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Queue Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 16px;
+    }
+
+    .aspect-square {
+      position: relative;
+      width: 100%;
+      padding-bottom: 100%;
+    }
+
+    .aspect-square div {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      background-color: transparent;
+      border: none;
+      padding: 12px 12px;
+      cursor: pointer;
+      color: #bbb;
+    }
+
+    .aspect-video {
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="root"></div>
+
+  <!-- Include React, ReactDOM, and Babel via CDN -->
+  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Your React code with Babel -->
+  <script type="text/babel">
+    const { useState } = React;
+
+    function QueueComponent() {
+      const [redQueueStart, setRedQueueStart] = useState(1);
+      const [blueQueueStart, setBlueQueueStart] = useState(1);
+
+      const incrementRedQueue = () => {
+        setRedQueueStart(prevStart => prevStart + 5);
+      };
+
+      const resetRedQueue = () => {
+        setRedQueueStart(1);
+      };
+
+      const incrementBlueQueue = () => {
+        setBlueQueueStart(prevStart => prevStart + 5);
+      };
+
+      const resetBlueQueue = () => {
+        setBlueQueueStart(1);
+      };
+
+      return (
+        <div className="container">
+          <h1 style={{ display: 'none' }}>Queue Management</h1>
+          <div>
+            <div className="grid">
+              {Array.from({ length: 5 }, (_, i) => redQueueStart + i).map((number, index) => (
+                <div key={index} className="aspect-square">
+                  <div style={{ backgroundColor: '#ffe0e0', borderRadius: '8px' }}>
+                    <span style={{ fontSize: '48px', color: '#e60000', fontWeight: 'bold' }}>{number}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <button onClick={incrementRedQueue}>Next</button>
+              <button onClick={resetRedQueue}>Reset</button>
+            </div>
+          </div>
+          <div>
+            <div className="grid">
+              {Array.from({ length: 5 }, (_, i) => blueQueueStart + i).map((number, index) => (
+                <div key={index} className="aspect-square">
+                  <div style={{ backgroundColor: '#e0e0ff', borderRadius: '8px' }}>
+                    <span style={{ fontSize: '48px', color: '#0000e6', fontWeight: 'bold' }}>{number}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <button onClick={incrementBlueQueue}>Next</button>
+              <button onClick={resetBlueQueue}>Reset</button>
+            </div>
+          </div>
+          <br />
+          <div className="aspect-video">
+            <iframe
+              width="100%"
+              height="315px"
+              src="https://www.youtube.com/embed/q0mbKsKG-ng?si=f1XZ9eid94fe_xv9"
+              title="Advertisement Video"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              style={{ borderRadius: '8px' }}
+            ></iframe>
+          </div>
+        </div>
+      );
+    }
+
+    // Render the component to the root div
+    ReactDOM.render(<QueueComponent />, document.getElementById('root'));
+  </script>
+
+</body>
+
+</html>
